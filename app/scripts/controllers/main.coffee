@@ -1,5 +1,4 @@
 'use strict'
-
 ###*
  # @ngdoc function
  # @name ngsampleApp.controller:MainCtrl
@@ -8,14 +7,24 @@
  # Controller of the ngsampleApp
 ###
 angular.module('ngsampleApp')
-  .controller 'MainCtrl', ($scope) ->
+  .controller 'MainCtrl', ($scope, ColumnFactory, TaskFactory) ->
+
+    $scope.columns = [] 
+    $scope.columns.push ColumnFactory.createColumn "ToDo"
+    $scope.columns.push ColumnFactory.createColumn "Doing"
+    $scope.columns.push ColumnFactory.createColumn "Done"
+
+    $scope.getColumns = ->
+      $scope.columns
+
     $scope.getTasks = ->
       tasks = []
-      tasks = tasks.concat column for column in $scope.columns
+      for column in $scope.columns
+        tasks = tasks.concat column.tasks
       tasks
 
-    $scope.columns = [[],[],[]]
-    $scope.addTask = (task) ->
-      return unless task
-      $scope.columns[0].push task
+    $scope.addTask = (taskName) ->
+      return unless taskName
+      $scope.columns[0].tasks.push TaskFactory.createTask taskName
       $scope.taskname = ""
+    return

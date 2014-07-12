@@ -21,7 +21,7 @@ describe 'Controller: MainCtrl', ->
 
   it 'deve adicionar a tarefa correta', ->
     scope.addTask "Task test"
-    expect(scope.getTasks()[0]).toBe "Task test"
+    expect(scope.getTasks()[0].name).toBe "Task test"
 
   it 'nao deve permitir add uma tarefa vazia', ->
     scope.addTask ""
@@ -37,4 +37,12 @@ describe 'Controller: MainCtrl', ->
 
   it 'deve adicionar as tasks na primeira coluna', ->
     scope.addTask "Task"
-    expect(scope.columns[0][0]).toBe 'Task'
+    expect(scope.columns[0].tasks[0].name).toBe 'Task'
+
+  it 'deve ter TODO como primeira coluna', ->
+    expect(scope.columns[0].title).toBe "ToDo"
+
+  it 'duas tasks com o mesmo nome são diferentes', ->
+    scope.addTask "Task"
+    scope.addTask "Task"
+    expect(scope.getTasks()[0]).not.toBe scope.getTasks()[1]
