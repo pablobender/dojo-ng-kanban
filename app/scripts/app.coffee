@@ -25,4 +25,3 @@ angular
         controller: 'AboutCtrl'
       .otherwise
         redirectTo: '/'
-

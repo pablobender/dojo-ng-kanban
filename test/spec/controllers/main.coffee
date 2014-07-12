@@ -15,5 +15,26 @@ describe 'Controller: MainCtrl', ->
       $scope: scope
     }
 
-  it 'should attach a list of awesomeThings to the scope', ->
-    expect(scope.awesomeThings.length).toBe 3
+  it 'should add task on list', ->
+    scope.addTask "Task test"
+    expect(scope.getTasks().length).toBe 1
+
+  it 'deve adicionar a tarefa correta', ->
+    scope.addTask "Task test"
+    expect(scope.getTasks()[0]).toBe "Task test"
+
+  it 'nao deve permitir add uma tarefa vazia', ->
+    scope.addTask ""
+    expect(scope.getTasks().length).toBe 0
+
+  it 'deve limpar taskname apos adicionar tarefa', ->
+    scope.taskname = "aaa"
+    scope.addTask "Task"
+    expect(scope.taskname).toBe ""
+
+  it 'deve inicar com 3 colunas', ->
+    expect(scope.columns.length).toBe 3
+
+  it 'deve adicionar as tasks na primeira coluna', ->
+    scope.addTask "Task"
+    expect(scope.columns[0][0]).toBe 'Task'

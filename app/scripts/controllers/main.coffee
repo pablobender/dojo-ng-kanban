@@ -9,8 +9,13 @@
 ###
 angular.module('ngsampleApp')
   .controller 'MainCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-    ]
+    $scope.getTasks = ->
+      tasks = []
+      tasks = tasks.concat column for column in $scope.columns
+      tasks
+
+    $scope.columns = [[],[],[]]
+    $scope.addTask = (task) ->
+      return unless task
+      $scope.columns[0].push task
+      $scope.taskname = ""
