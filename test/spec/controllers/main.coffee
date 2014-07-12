@@ -46,3 +46,15 @@ describe 'Controller: MainCtrl', ->
     scope.addTask "Task"
     scope.addTask "Task"
     expect(scope.getTasks()[0]).not.toBe scope.getTasks()[1]
+
+  it 'deve mover tarefa para a proxima coluna', ->
+    task = scope.addTask "Tarefa1"
+    column = scope.columns[1]
+    scope.move task, column
+    expect(column.tasks[0]).toBe task
+ 
+  it 'deve remover tarefa movida da coluna original', ->
+    task = scope.addTask "Tarefa1"
+    column = scope.columns[1]
+    scope.move task, column
+    expect(scope.columns[0].tasks.length).toBe 0

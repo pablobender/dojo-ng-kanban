@@ -2,12 +2,12 @@
   <input type="text" ng-model="taskname" />
   <button ng-click="addTask(taskname)" >Adicionar Tarefa</button>
 
-  <div ng-repeat="column in columns">
+  <div ng-repeat="(index, column) in columns">
     <h2>{{ column.title }}</h2>
 
     <ul>
       <li ng-repeat="task in column.tasks">
-        {{ task.name }}
+        <span ng-click="move(task, columns[index + 1])">{{ task.name }}</span>
       </li>
     </ul>
   </div>

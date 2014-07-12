@@ -25,6 +25,16 @@ angular.module('ngsampleApp')
 
     $scope.addTask = (taskName) ->
       return unless taskName
-      $scope.columns[0].tasks.push TaskFactory.createTask taskName
+      task = TaskFactory.createTask taskName
+      $scope.columns[0].tasks.push task
       $scope.taskname = ""
+      task
+
+    $scope.move = (task, targetColumn) ->
+      for column in $scope.columns
+        _.remove column.tasks, (t)->
+          t == task
+
+      targetColumn.tasks.push task
+
     return
